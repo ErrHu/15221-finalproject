@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect
-import logging
 from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+import logging
 
 from cmuaudit.service import parse_audit
 
@@ -18,8 +19,6 @@ def home(request):
 
 @csrf_protect
 def sign_in(request, template_name="cmuaudit/sign_in.anonymous.jinja"):
-    logger.error(request.method)
-
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']
@@ -28,7 +27,8 @@ def sign_in(request, template_name="cmuaudit/sign_in.anonymous.jinja"):
 
         if user is not None and user.is_active:
             login(request, user)
-            return HttpResponseRedirect("/")
+            next_url = request.GET.get('next', '/')
+            return HttpResponseRedirect(next_url)
 
     return render(request, template_name, {})
 
@@ -36,6 +36,10 @@ def sign_in(request, template_name="cmuaudit/sign_in.anonymous.jinja"):
 @csrf_protect
 def sign_up(request, template_name="cmuaudit/sign_up.anonymous.jinja"):
     logger.error(request.method)
+    logger.error("request.POST")
+    logger.error(request.POST)
+    logger.error("request.GET")
+    logger.error(request.GET)
 
     if request.method == "POST":
         username = request.POST['username']
@@ -57,6 +61,8 @@ def sign_up(request, template_name="cmuaudit/sign_up.anonymous.jinja"):
 
     return render(request, template_name, {})
 
+
+@login_required
 @csrf_protect
 def upload(request, template_name="cmuaudit/upload.jinja"):
     context = {}
@@ -68,4 +74,3 @@ def upload(request, template_name="cmuaudit/upload.jinja"):
         template_name = "cmuaudit/upload.completed.jinja"
 
     return render(request, template_name, context)
-
