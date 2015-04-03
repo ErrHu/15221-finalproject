@@ -43,6 +43,21 @@
                     </tbody>
                 </table>
             </div>
+            <form class="form-horizontal" role="form" action="/save_audit" method="post">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                {% for row_data in audit_data %}
+                    <input type="hidden" name="course_id" value="{{row_data.course_id}}">
+                    <input type="hidden" name="year" value="{{row_data.year}}">
+                    <input type="hidden" name="season" value="{{row_data.season}}">
+                    <input type="hidden" name="unit" value="{{row_data.unit}}">
+                    <input type="hidden" name="grade" value="{{row_data.grade}}">
+                {% endfor %}
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-default">Save</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

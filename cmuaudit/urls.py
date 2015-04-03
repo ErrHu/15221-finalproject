@@ -7,5 +7,6 @@ urlpatterns = patterns(
     url(r'^sign_in/?', 'cmuaudit.views.sign_in', name='sign_in'),
     url(r'^sign_up/?', 'cmuaudit.views.sign_up', name='sign_up'),
     url(r'^upload/?', 'cmuaudit.views.upload', name='upload'),
+    url(r'^save_audit/?', 'cmuaudit.views.save_audit', name='save_audit'),
     url(r'^admin/?', include(admin.site.urls))
 )
