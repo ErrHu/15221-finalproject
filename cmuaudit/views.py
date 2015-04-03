@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 
+from cmuaudit.service import parse_audit
+
 
 logger = logging.getLogger(__name__)
 
@@ -55,9 +57,15 @@ def sign_up(request, template_name="cmuaudit/sign_up.anonymous.jinja"):
 
     return render(request, template_name, {})
 
+@csrf_protect
 def upload(request, template_name="cmuaudit/upload.jinja"):
-    if request.method == "POST":
-        logger.debug(request.POST)
+    context = {}
 
-    return render(request, template_name, {})
+    if request.method == "POST":
+        audit_text = request.POST['audit_text']
+        context['audit_data'] = parse_audit(audit_text)
+        logger.debug(context['audit_data'])
+        template_name = "cmuaudit/upload.completed.jinja"
+
+    return render(request, template_name, context)
 
