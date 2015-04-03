@@ -1,0 +1,42 @@
+{% extends "cmuaudit/_base.anonymous.jinja" %}
+
+{% block content %}
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 class="text-center">Upload Your Academic Audit</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-offset-3 col-md-6">
+                <form class="form-horizontal" role="form" action="/upload" method="post">
+                    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                    <div class="form-group">
+                        <div class="col-sm-3">
+                            <label for="inputUsername3" class="control-label">Academic Audit</label>
+                        </div>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" rows="10" name="audit_text"></Textarea>
+                            
+                        </div>
+                    </div>
+<!--                     <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-9">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox">Remember me</label>
+                            </div>
+                        </div>
+                    </div>
+ -->                    <div class="form-group">
+                        <div class="col-sm-offset-3 col-sm-9">
+                            <button type="submit" class="btn btn-default">Upload</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

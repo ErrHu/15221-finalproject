@@ -54,3 +54,10 @@ def sign_up(request, template_name="cmuaudit/sign_up.anonymous.jinja"):
             return HttpResponseRedirect("/")
 
     return render(request, template_name, {})
+
+def upload(request, template_name="cmuaudit/upload.jinja"):
+    if request.method == "POST":
+        logger.debug(request.POST)
+
+    return render(request, template_name, {})
+
