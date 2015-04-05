@@ -39,7 +39,8 @@ INSTALLED_APPS = (
     'django_extensions',
     'django_jinja',
     'cmuaudit',
-    'course'
+    'course',
+    'audit'
 )
 
 MIDDLEWARE_CLASSES = (

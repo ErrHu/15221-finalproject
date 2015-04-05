@@ -43,7 +43,7 @@
                     </tbody>
                 </table>
             </div>
-            <form class="form-horizontal" role="form" action="/save_audit" method="post">
+            <form class="form-horizontal" role="form" action="/audit/save_audit" method="post">
                 <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
                 {% for row_data in audit_data %}
                     <input type="hidden" name="course_id" value="{{row_data.course_id}}">
