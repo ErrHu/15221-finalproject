@@ -9,3 +9,4 @@ py-bcrypt==0.3
 six==1.9.0
 smarturls==0.1.4
 wsgiref==0.1.2
+json==2.0.9
