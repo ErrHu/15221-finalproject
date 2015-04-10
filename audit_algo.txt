@@ -1,0 +1,39 @@
+TABLES
+
+Users:
+	username	password	first_name	last_name
+
+Audit: (rename to Transcript)
+	[{year	course_id	season	unit	grade} for course in audit]
+
+Class Department
+Class Course
+
+Majors:
+	major 	school	{course requirements} [course requirements]*
+
+	*where [course requirements]:
+		[req_id for all requirements]
+		ex. [	15-112,
+				Systems,
+				15-213,
+				Sciences]
+	and {course requirements}:
+		{req_id: [course_ids]}
+		ex. { 	15-112 : {'num' : 1, 'course_ids' : [15-112]},
+				Systems : {'num' : 1, 'course_ids' : [15-440, 15-410, etc],
+				15-213 : {'num' : 1, 'course_ids' : [15-213],
+				Sciences : {'num' : 3, 'course_ids' : [etcetc]}
+				AdvSciences : {'num' : 1, 'course_ids' : [etc]}}
+
+	Note that AdvSciences isn't dependent on Sciences, but it isn't possible to take a class in the AdvSciences list without taking one in the Sciences list.
+
+ALGORITHM
+Given Transcript T and major M, we create a new object audit A such that A contains a list of all of the requirements in M. Then, we search through the requirements and mark each requirement that has at least 'num' satisfied class in its list True.
+
+example. More information can be stored accordingly (ex. grades, season, etc)
+	Computer Science 	SCS
+	{	15-112: {'done' : True, 'num_done' : 1},
+		Systems: {'done' : False, 'num_done' : 0},
+		15-213: {'done' : True, 'num_done' : 1},
+		Sciences: {'done' : False, 'num_done' : 2}}
